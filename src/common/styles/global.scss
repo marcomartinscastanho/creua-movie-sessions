@@ -1,3 +1,16 @@
+@import "./variables.scss";
+
 html {
   font-family: "Inter", sans-serif;
+  background-color: $background-color;
+  color: $primary-color;
+}
+
+a {
+  color: $accent-color;
+  text-decoration: none;
+}
+a:hover {
+  color: $accent-color;
+  text-decoration: underline;
 }

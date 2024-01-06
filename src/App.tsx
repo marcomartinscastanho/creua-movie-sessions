@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './app.scss';
 import { AppRouter } from './appRouter';
 
-function App() {
+export const App: FC = () => {
   return (
     <AppRouter />
   );
 }
 
-export default App;
+App.displayName = 'App';
