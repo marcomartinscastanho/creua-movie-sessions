@@ -1,0 +1,11 @@
+@import "common/styles/normalize.css";
+@import "common/styles/variables";
+@import "common/styles/z-index";
+@import "common/styles/global";
+
+@import "pages/homePage/homePage.scss";
+
+// TODO: remove below, added just for initial development phase
+.app__dev {
+  display: none;
+}

@@ -1,0 +1,39 @@
+$z-indexes: (
+        negative: -1,
+        positive: 1,
+        footerPrimaryContent: 10,
+        cookieBar: 900,
+        searchBar: 1110, // needs to be higher than overlay
+        header: 1000,
+        prevNext: 900,
+        submenu: 990,
+        flightFilterBar: 990,
+        overlay: 1100,
+        sidebar: 1200,
+        modal: 1300,
+        loadMore: 50,
+        loaderWrapper: 500,
+        dropdown: 600, // higher that loader-wrapper as dropdowns are placed above buckets on results pages
+        slider: (
+                arrow: 2
+        )
+);
+
+@function zi($key1, $key2: null) {
+  $found-index: null;
+  @if (map-has-key($z-indexes, $key1)) {
+    $found-index: map-get($z-indexes, $key1);
+
+    @if ($key2) {
+      $map: map-get($z-indexes, $key1);
+      $found-index: map-get($map, $key2);
+    }
+  } @else {
+    @warn "Missing z-index for layer: " + $key1;
+  }
+  @return $found-index;
+}
+
+@mixin z-index($key1, $key2: null) {
+  z-index: zi($key1, $key2);
+}
