@@ -79,7 +79,7 @@ export const getPersonMovieCredits = async (id: number): Promise<MovieDetails[]>
         popularity: result.popularity,
         poster_path: result.poster_path,
         release_date: result.release_date,
-        vote_average: result.vote_average,
+        vote_average: (result.vote_average + 0.5) / 2,
       }))
     )
     .then((movies) => movies.filter((movie) => !!movie.release_date && !!movie.poster_path));

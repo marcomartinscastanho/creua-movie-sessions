@@ -63,14 +63,17 @@ export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSp
           <div className='selected-director__country'>{director.country}</div>
           <div className='selected-director__period-title'>Years Active:</div>
           <div className='selected-director__period'>{director.period}</div>
+          <div className='selected-director__good-movies'>{director.movies?.filter(m => m.vote_average > 3.5).length} decent films</div>
         </div>
       </div>
-      <div className='selected-director__movies'>{director.movies?.map(movie => (
+      <div className='selected-director__movies'>{director.movies?.filter(m => m.vote_average >= 3.5).map(movie => (
         <div className='selected-director__movie' key={movie.id}>
           <img src={movie.poster} className='selected-director__movie-poster' alt={movie.title} />
           <div className='selected-director__movie-details'>
             <div className='selected-director__movie-title'>{movie.title}</div>
             <div className='selected-director__movie-year'>{new Date(movie.release_date).getFullYear()}</div>
+            <div className='selected-director__movie-rating'>{(Math.round(movie.vote_average * 10) / 10).toFixed(1)} ☆</div>
+
           </div>
         </div>
       ))}</div>

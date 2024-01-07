@@ -80,6 +80,7 @@
 
     .selected-director__country {
       font-size: 36px;
+      margin-bottom: 4px;
     }
 
     .selected-director__period-title {
@@ -88,6 +89,11 @@
 
     .selected-director__period {
       font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .selected-director__good-movies {
+      font-size: 14px;
     }
 
     @media only screen and (max-width: 800px) {
@@ -146,6 +152,16 @@
         padding: 8px 0;
 
         .selected-director__movie-title {
+          font-size: 20px;
+          color: $accent-color;
+        }
+
+        .selected-director__movie-year {
+          font-size: 14px;
+          margin-bottom: 8px;
+        }
+
+        .selected-director__movie-rating {
           color: $accent-color;
         }
       }
