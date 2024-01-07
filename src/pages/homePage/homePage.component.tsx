@@ -28,7 +28,6 @@ export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSp
       radius={5}
       ariaLabel="ball-triangle-loading"
       wrapperClass="loader-wrapper"
-      visible={false}
     />
   }
 

@@ -3,6 +3,7 @@ import { HomePageComponent } from './homePage.component';
 import { DirectorRow, getSheetData } from '../../modules/google/google';
 import { PersonDetails, getPersonDetails, getPersonMovieCredits } from '../../modules/tmdb/tmdb';
 import { WrapperComponent } from '../../common/components/wrapper/wrapper.component';
+import { getLastDirectorDetails, saveLastDirectorDetails } from '../../modules/firebase/firebase';
 
 type HomePageContainerProps = Readonly<{
 }>;
@@ -16,7 +17,10 @@ export const HomePageContainer: FC<HomePageContainerProps> = () => {
   const [director, setDirector] = useState<PersonDetails | undefined>(undefined);
 
   useEffect(() => {
-    getSheetData().then(setDirectors).finally(() => setIsLoading(false))
+    getSheetData().then(async allDirs => {
+      const lastDir = await getLastDirectorDetails()
+      return lastDir ? allDirs.filter(dir => dir.country !== lastDir.country && dir.decade !== lastDir.decade) : allDirs
+    }).then(setDirectors).finally(() => setIsLoading(false))
   }, [])
 
   useEffect(() => {
@@ -25,6 +29,10 @@ export const HomePageContainer: FC<HomePageContainerProps> = () => {
         .then(dir => getPersonMovieCredits(dir.id)
           .then(movies => ({ ...dir, movies }))
         )
+        .then(dir => {
+          saveLastDirectorDetails(dir)
+          return dir
+        })
         .then(setDirector)
     }
   }, [isSpinning, spinningResult])
