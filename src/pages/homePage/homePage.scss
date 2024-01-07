@@ -22,7 +22,32 @@
 }
 
 .spinning-director-name {
-  font-size: xx-large;
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 20px;
+
+  @media only screen and (max-width: 800px) {
+    font-size: 38px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.post-spinning-loader-wrapper {
+  width: 100%;
+  height: 100px;
+  .post-spinning-loader {
+    justify-content: center;
+    svg {
+      stroke: $accent-color;
+    }
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .post-spinning-loader.fade-in {
+    opacity: 1;
+  }
 }
 
 .selected-director {
@@ -54,7 +79,11 @@
     }
 
     .selected-director__country {
-      font-size: 32px;
+      font-size: 36px;
+    }
+
+    .selected-director__period-title {
+      font-size: 12px;
     }
 
     .selected-director__period {
@@ -79,8 +108,12 @@
         font-size: 18px;
       }
 
+      .selected-director__period-title {
+        font-size: 10px;
+      }
+
       .selected-director__period {
-        font-size: 16px;
+        font-size: 12px;
       }
     }
   }

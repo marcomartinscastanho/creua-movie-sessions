@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { BallTriangle } from "react-loader-spinner";
 import { DirectorRow } from '../../modules/google/google';
 import { PersonDetails } from '../../modules/tmdb/tmdb';
@@ -13,11 +13,22 @@ type HomePageProps = Readonly<{
 }>;
 
 export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSpinning, spinningResult, onSpinButtonClick }) => {
+  const [showSmallSpinner, setShowSmallSpinner] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowSmallSpinner(!isSpinning);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [isSpinning]);
+
   if (isLoading) {
     return <BallTriangle
       radius={5}
       ariaLabel="ball-triangle-loading"
       wrapperClass="loader-wrapper"
+      visible={false}
     />
   }
 
@@ -27,8 +38,19 @@ export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSp
 
   if (isSpinning || !director) {
     return (
-      <div className="spinning-director-name">
-        {spinningResult?.name}
+      <div>
+        <div className="spinning-director-name">
+          {spinningResult?.name}
+        </div>
+        <div className='post-spinning-loader-wrapper'>
+          {!isSpinning && (
+            <BallTriangle
+              radius={5}
+              ariaLabel="ball-triangle-loading"
+              wrapperClass={`post-spinning-loader${showSmallSpinner ? " fade-in" : ""}`}
+            />
+          )}
+        </div>
       </div>
     );
   }
@@ -40,6 +62,7 @@ export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSp
         <div className='selected-director__details'>
           <div className='selected-director__name'>{director.name}</div>
           <div className='selected-director__country'>{director.country}</div>
+          <div className='selected-director__period-title'>Years Active:</div>
           <div className='selected-director__period'>{director.period}</div>
         </div>
       </div>
