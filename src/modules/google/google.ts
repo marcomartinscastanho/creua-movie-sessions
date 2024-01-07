@@ -1,12 +1,13 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
-type Director = {
+export type DirectorRow = {
   name: string;
   country: string;
+  period: string;
   decade: number;
 };
 
-export const getSheetData = async (): Promise<Director[]> => {
+export const getSheetData = async (): Promise<DirectorRow[]> => {
   const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID;
   const GOOGLE_SHEETS_API_KEY = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY;
 
@@ -25,12 +26,14 @@ export const getSheetData = async (): Promise<Director[]> => {
   const headers = sheet.headerValues;
   const headerName = headers[0];
   const headerCountry = headers[3];
+  const headerPeriod = headers[4];
   const headerDecade = headers[5];
 
   return sheet.getRows().then((rows) =>
     rows.map((row) => ({
       name: row.get(headerName),
       country: row.get(headerCountry),
+      period: row.get(headerPeriod),
       decade: row.get(headerDecade),
     }))
   );
