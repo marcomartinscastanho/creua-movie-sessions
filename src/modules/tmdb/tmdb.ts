@@ -51,7 +51,11 @@ export const getPersonDetails = (director: DirectorRow): Promise<PersonDetails> 
 
   return tmdbGet(requestUrl, undefined, { baseURL: TMDB_API_PREFIX })
     .then((data) => data.results)
-    .then((results: PersonResult[]) => results.filter((result) => result.known_for_department === "Directing" || result.known_for_department === "Writing"))
+    .then((results: PersonResult[]) =>
+      results.filter(
+        (result) => result.known_for_department === "Directing" || result.known_for_department === "Writing" || result.known_for_department === "Production"
+      )
+    )
     .then((results) => results.sort(popularitySort))
     .then((results) => results.at(0))
     .then((result) => (result ? { ...director, id: result.id, profile_path: result.profile_path } : { ...director, id: -1, profile_path: "" }))
@@ -77,7 +81,13 @@ export const getPersonMovieCredits = async (id: number): Promise<MovieDetails[]>
         release_date: result.release_date,
         vote_average: result.vote_average,
       }))
-    );
+    )
+    .then((res) => {
+      console.log("MOVIES", res);
+
+      return res;
+    })
+    .then((movies) => movies.filter((movie) => !!movie.release_date && !!movie.poster_path));
 
   return Promise.all(
     movies.map(async (movie) => {
