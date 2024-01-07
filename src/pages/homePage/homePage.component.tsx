@@ -32,7 +32,7 @@ export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSp
   }
 
   if (!spinningResult) {
-    return <button className='spin-button' type='button' onClick={onSpinButtonClick}>SPIN</button>
+    return <button className='start-button' type='button' onClick={onSpinButtonClick}>GO</button>
   }
 
   if (isSpinning || !director) {
@@ -66,7 +66,7 @@ export const HomePageComponent: FC<HomePageProps> = ({ director, isLoading, isSp
           <div className='selected-director__good-movies'>{director.movies?.filter(m => m.vote_average > 3.5).length} decent films</div>
         </div>
       </div>
-      <div className='selected-director__movies'>{director.movies?.filter(m => m.vote_average >= 3.5).map(movie => (
+      <div className='selected-director__movies'>{director.movies?.map(movie => (
         <div className='selected-director__movie' key={movie.id}>
           <img src={movie.poster} className='selected-director__movie-poster' alt={movie.title} />
           <div className='selected-director__movie-details'>

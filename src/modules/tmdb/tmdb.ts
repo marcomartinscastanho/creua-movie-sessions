@@ -82,7 +82,8 @@ export const getPersonMovieCredits = async (id: number): Promise<MovieDetails[]>
         vote_average: (result.vote_average + 0.5) / 2,
       }))
     )
-    .then((movies) => movies.filter((movie) => !!movie.release_date && !!movie.poster_path));
+    .then((movies) => movies.filter((movie) => !!movie.release_date && !!movie.poster_path))
+    .then((movies) => movies.filter((movie) => movie.vote_average >= 3.5));
 
   return Promise.all(
     movies.map(async (movie) => {
