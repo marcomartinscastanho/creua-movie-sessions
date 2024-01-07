@@ -55,7 +55,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  height: 100dvh;
 
   .selected-director__header {
     display: flex;
